@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+		static void Main(string[] args)
+		{
+			int numerador = 0, denominador = 0;
+			Console.Write("Numerador: ");
+			numerador = Convert.ToInt32(Console.ReadLine());
+			Console.Write("Denominador: ");
+			denominador = Convert.ToInt32(Console.ReadLine());
+
+			if (numerador % denominador == 0)
+			{
+				int resultado = 0;
+				resultado = numerador / denominador;
+				Console.Write("Resultado entero: " + resultado);
+			}
+			else
+			{
+				int divisiblePor = 1;
+				do
+				{
+					divisiblePor = simplificar(numerador, denominador);
+					numerador = numerador / divisiblePor;
+					denominador = denominador / divisiblePor;
+				} while (divisiblePor != 1);
+
+				Console.Write("Numerador: " + numerador);
+				Console.Write(" Denominador: " + denominador);
+			}
+			Console.ReadKey();
+
+			int simplificar(int num, int den)
+			{
+				int dividirDesde = 9;
+
+				if (num < 9 && den < 9)
+				{
+					dividirDesde = (num < den) ? num : den;
+				}
+
+				for (int divisor = dividirDesde; divisor >= 2; divisor--)
+				{
+					if (num % divisor == 0 && den % divisor == 0)
+					{
+						return divisor;
+					}
+				}
+
+				return 1;
+			}
+		}
+    }
+}
