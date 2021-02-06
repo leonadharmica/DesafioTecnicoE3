@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VariableNombres
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            string primerNombre, segundoNombre, apellido;
+
+            Console.Write("Primer nombre o primera inicial: ");
+            primerNombre = Console.ReadLine();
+            Console.Write("Segundo nombre o segunda inicial: ");
+            segundoNombre = Console.ReadLine();
+            Console.Write("Apellido: ");
+            apellido = Console.ReadLine();
+
+            bool isValidName = validarNombre(primerNombre, segundoNombre, apellido);
+
+            Console.WriteLine(isValidName);
+            Console.ReadKey();
+
+            bool validarNombre(string primerNom, string segundoNom, string surname)
+            {
+                if (empiezaConMayuscula(primerNom) && empiezaConMayuscula(segundoNom) && empiezaConMayuscula(surname))
+                {
+                    if (palabraCompletaNombres(primerNom) && palabraCompletaNombres(segundoNom) && palabraCompletaApellido(surname))
+                    {
+                        bool segundoNomEsInicial = nombreEsInicial(segundoNom);
+                        if (segundoNom == "" && segundoNomEsInicial)
+                        {
+                            return !nombreEsInicial(primerNom);
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+
+
+                bool empiezaConMayuscula(string palabra)
+            {
+                return palabra == "" || char.IsUpper(palabra[0]);
+            }
+
+            bool palabraCompletaNombres(string nombre)
+            {
+                if (nombre.Length > 2)
+                {
+                    return (nombre[nombre.Length - 1] != '.');
+                }
+                return true;
+            }
+
+            bool palabraCompletaApellido(string apell)
+            {
+                return (apell.Length > 2 && apell[apell.Length - 1] != '.');
+            }
+
+            bool nombreEsInicial(string nombre)
+            {
+                return (nombre.Length == 2 && nombre[1] == '.');
+            }
+        }
+    }
